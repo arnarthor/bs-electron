@@ -13,3 +13,8 @@ external on:
   "";
 
 [@bs.module "electron"] [@bs.scope "app"] external quit: unit => unit = "";
+
+module Dock = {
+  [@bs.module "electron"] [@bs.scope ("app", "dock")]
+  external hide: unit => unit = "";
+};
