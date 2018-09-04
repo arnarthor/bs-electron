@@ -10,11 +10,10 @@
     "in-source": true
   },
   "suffix": ".bs.js",
-  "bs-dependencies": [
-    // add your bs-dependencies here
-  ],
+  "bs-dependencies": [],
   "namespace": true,
   "warnings": {
+    "number": "-20",
     "error": "+101"
   },
   "refmt": 3
