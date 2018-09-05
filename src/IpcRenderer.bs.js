@@ -5,8 +5,10 @@ var Json$BsElectron = require("./Json.bs.js");
 var Window$BsElectron = require("./Window.bs.js");
 
 function MakeIpcRenderer() {
-  var on = function (param) {
-    Window$BsElectron.electron.ipcRenderer.on("message", param);
+  var on = function (cb) {
+    Window$BsElectron.electron.ipcRenderer.on("message", (function ($$event, arg) {
+            return cb($$event, Json$BsElectron.fromValidJson(JSON.parse(arg)));
+          }));
     return /* () */0;
   };
   var removeListener = function (param) {
