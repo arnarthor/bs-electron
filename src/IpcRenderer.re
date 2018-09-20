@@ -1,6 +1,7 @@
 module type IpcRenderer = {
   type mainToRendererMessages;
   type rendererToMainMessages;
+  let message: string;
 };
 module MakeIpcRenderer = (T: IpcRenderer) => {
   type event;
@@ -8,10 +9,9 @@ module MakeIpcRenderer = (T: IpcRenderer) => {
   type ipcCallback = (. event, string) => unit;
 
   [@bs.send] [@bs.scope "ipcRenderer"]
-  external on: (Window.electronT, [@bs.as "message"] _, ipcCallback) => unit =
-    "";
+  external on: (Window.electronT, string, ipcCallback) => unit = "";
   let on = (cb: messageCallback(T.mainToRendererMessages)) =>
-    on(Window.electron, (. event, arg) =>
+    on(Window.electron, T.message, (. event, arg) =>
       cb(. event, arg->Js.Json.parseExn->Json.fromValidJson)
     );
 
@@ -27,8 +27,11 @@ module MakeIpcRenderer = (T: IpcRenderer) => {
   let removeListener = removeListener(Window.electron);
 
   [@bs.send] [@bs.scope "ipcRenderer"]
-  external send: (Window.electronT, [@bs.as "message"] _, string) => unit =
-    "send";
+  external send: (Window.electronT, string, string) => unit = "send";
   let send = (arg: T.rendererToMainMessages) =>
-    send(Window.electron, arg->Json.toValidJson->Js.Json.stringify);
+    send(
+      Window.electron,
+      T.message,
+      arg->Json.toValidJson->Js.Json.stringify,
+    );
 };

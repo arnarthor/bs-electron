@@ -1,5 +1,9 @@
 type t;
-module MakeBrowserWindow = (T: {type mainToRendererMessages;}) => {
+module MakeBrowserWindow =
+       (T: {
+          type mainToRendererMessages;
+          let message: string;
+        }) => {
   type windowConfig = {
     .
     width: int,
@@ -40,10 +44,10 @@ module MakeBrowserWindow = (T: {type mainToRendererMessages;}) => {
     "";
 
   [@bs.send] [@bs.scope "webContents"]
-  external send: (t, [@bs.as "message"] _, 'a) => unit = "send";
+  external send: (t, string, 'a) => unit = "send";
 
   let send = (t, arg: T.mainToRendererMessages) =>
-    send(t, arg->Json.toValidJson->Js.Json.stringify);
+    send(t, T.message, arg->Json.toValidJson->Js.Json.stringify);
 
   [@bs.send] external openDevTools: t => unit = "";
 

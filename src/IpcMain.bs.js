@@ -4,9 +4,9 @@
 var Electron = require("electron");
 var Json$BsElectron = require("./Json.bs.js");
 
-function MakeIpcMain() {
+function MakeIpcMain(T) {
   var on = function (cb) {
-    Electron.ipcMain.on("message", (function ($$event, arg) {
+    Electron.ipcMain.on(T[/* message */0], (function ($$event, arg) {
             return cb($$event, Json$BsElectron.fromValidJson(JSON.parse(arg)));
           }));
     return /* () */0;

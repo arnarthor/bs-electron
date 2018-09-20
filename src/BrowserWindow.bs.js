@@ -3,9 +3,9 @@
 
 var Json$BsElectron = require("./Json.bs.js");
 
-function MakeBrowserWindow() {
+function MakeBrowserWindow(T) {
   var send = function (t, arg) {
-    t.webContents.send("message", JSON.stringify(Json$BsElectron.toValidJson(arg)));
+    t.webContents.send(T[/* message */0], JSON.stringify(Json$BsElectron.toValidJson(arg)));
     return /* () */0;
   };
   var getVisibility = function (t) {

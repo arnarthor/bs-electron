@@ -4,9 +4,9 @@
 var Json$BsElectron = require("./Json.bs.js");
 var Window$BsElectron = require("./Window.bs.js");
 
-function MakeIpcRenderer() {
+function MakeIpcRenderer(T) {
   var on = function (cb) {
-    Window$BsElectron.electron.ipcRenderer.on("message", (function ($$event, arg) {
+    Window$BsElectron.electron.ipcRenderer.on(T[/* message */0], (function ($$event, arg) {
             return cb($$event, Json$BsElectron.fromValidJson(JSON.parse(arg)));
           }));
     return /* () */0;
@@ -16,7 +16,7 @@ function MakeIpcRenderer() {
     return /* () */0;
   };
   var send = function (arg) {
-    Window$BsElectron.electron.ipcRenderer.send("message", JSON.stringify(Json$BsElectron.toValidJson(arg)));
+    Window$BsElectron.electron.ipcRenderer.send(T[/* message */0], JSON.stringify(Json$BsElectron.toValidJson(arg)));
     return /* () */0;
   };
   return /* module */[
