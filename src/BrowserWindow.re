@@ -42,7 +42,7 @@ module MakeBrowserWindow = (T: {type mainToRendererMessages;}) => {
   [@bs.send] [@bs.scope "webContents"]
   external send: (t, [@bs.as "message"] _, 'a) => unit = "send";
 
-  let sendWithArg = (t, arg: T.mainToRendererMessages) =>
+  let send = (t, arg: T.mainToRendererMessages) =>
     send(t, arg->Json.toValidJson->Js.Json.stringify);
 
   [@bs.send] external openDevTools: t => unit = "";

@@ -4,7 +4,7 @@
 var Json$BsElectron = require("./Json.bs.js");
 
 function MakeBrowserWindow() {
-  var sendWithArg = function (t, arg) {
+  var send = function (t, arg) {
     t.webContents.send("message", JSON.stringify(Json$BsElectron.toValidJson(arg)));
     return /* () */0;
   };
@@ -17,7 +17,7 @@ function MakeBrowserWindow() {
     }
   };
   return /* module */[
-          /* sendWithArg */sendWithArg,
+          /* send */send,
           /* getVisibility */getVisibility
         ];
 }
