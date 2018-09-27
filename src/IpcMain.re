@@ -15,6 +15,7 @@ module MakeIpcMain = (T: IpcType) => {
     );
   [@bs.module "electron"] [@bs.scope "ipcMain"]
   external removeListener:
-    ([@bs.as "message"] _, messageCallback(T.rendererToMainMessages)) => unit =
+    (string, messageCallback(T.rendererToMainMessages)) => unit =
     "";
+  let removeListener = removeListener(T.message);
 };

@@ -11,7 +11,15 @@ function MakeIpcMain(T) {
           }));
     return /* () */0;
   };
-  return /* module */[/* on */on];
+  var partial_arg = T[/* message */0];
+  var removeListener = function (param) {
+    Electron.ipcMain.removeListener(partial_arg, param);
+    return /* () */0;
+  };
+  return /* module */[
+          /* on */on,
+          /* removeListener */removeListener
+        ];
 }
 
 exports.MakeIpcMain = MakeIpcMain;

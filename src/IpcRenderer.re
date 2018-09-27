@@ -17,14 +17,10 @@ module MakeIpcRenderer = (T: IpcRenderer) => {
 
   [@bs.send] [@bs.scope "ipcRenderer"]
   external removeListener:
-    (
-      Window.electronT,
-      [@bs.as "message"] _,
-      messageCallback(T.mainToRendererMessages)
-    ) =>
+    (Window.electronT, string, messageCallback(T.mainToRendererMessages)) =>
     unit =
     "";
-  let removeListener = removeListener(Window.electron);
+  let removeListener = removeListener(Window.electron, T.message);
 
   [@bs.send] [@bs.scope "ipcRenderer"]
   external send: (Window.electronT, string, string) => unit = "send";

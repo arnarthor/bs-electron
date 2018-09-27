@@ -11,8 +11,9 @@ function MakeIpcRenderer(T) {
           }));
     return /* () */0;
   };
+  var partial_arg = T[/* message */0];
   var removeListener = function (param) {
-    Window$BsElectron.electron.ipcRenderer.removeListener("message", param);
+    Window$BsElectron.electron.ipcRenderer.removeListener(partial_arg, param);
     return /* () */0;
   };
   var send = function (arg) {
