@@ -23,6 +23,9 @@ module MakeBrowserWindow =
       ~titleBarStyle: [@bs.string] [ | [@bs.as "hidden"] `Hidden]=?,
       ~fullscreenable: bool=?,
       ~resizeable: bool=?,
+      ~transparent: bool=?,
+      ~title: string=?,
+      ~backgroundColor: string=?,
       unit
     ) =>
     windowConfig =
