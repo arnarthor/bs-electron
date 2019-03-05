@@ -65,4 +65,5 @@ module MakeBrowserWindow =
 
   type visibility = [ | `Showing | `Hidden];
   let getVisibility = t => isVisible(t) ? `Showing : `Hidden;
+  let getBounds = t => Common.boundsFromJs(Common.getBoundsJs(t));
 };
