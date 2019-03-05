@@ -1,34 +1,49 @@
 module Item = {
+  type t;
   type type_ =
     | Label(string)
     | Checkbox(string)
     | Radio(string)
-    | Separator;
+    | Submenu(string, array(t))
+    | Separator
 
-  type template = {
+  and template = {
     .
     "type": string,
     "label": string,
     "enabled": bool,
+    "submenu": array(t),
+    "sublabel": option(string),
     "accelerator": option(string),
     "icon": option(string),
     "role": option(string),
     "click": option(unit => unit),
   };
-  type t;
   [@bs.module "electron"] [@bs.new] external make: template => t = "MenuItem";
   let make =
-      (type_, ~enabled=true, ~icon=?, ~accelerator=?, ~role=?, ~click=?, ()) => {
-    let (label, type_) =
+      (
+        type_,
+        ~sublabel=?,
+        ~enabled=true,
+        ~icon=?,
+        ~accelerator=?,
+        ~role=?,
+        ~click=?,
+        (),
+      ) => {
+    let (label, type_, submenu) =
       switch (type_) {
-      | Label(s) => (s, "normal")
-      | Checkbox(s) => (s, "checkbox")
-      | Radio(s) => (s, "radio")
-      | Separator => ("", "separator")
+      | Label(s) => (s, "normal", [||])
+      | Checkbox(s) => (s, "checkbox", [||])
+      | Radio(s) => (s, "radio", [||])
+      | Separator => ("", "separator", [||])
+      | Submenu(s, l) => (s, "submenu", l)
       };
     make({
       "type": type_,
       "label": label,
+      "sublabel": sublabel,
+      "submenu": submenu,
       "accelerator": accelerator,
       "icon": icon,
       "role": role,
