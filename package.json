@@ -12,7 +12,7 @@
   "author": "arnarthor",
   "license": "MIT",
   "devDependencies": {
-    "bs-platform": "^4.0.7"
+    "bs-platform": "^5.0.0"
   },
   "dependencies": {
     "electron": "^4.0.4"
