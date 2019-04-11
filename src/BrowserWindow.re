@@ -23,6 +23,9 @@ module MakeBrowserWindow =
       ~titleBarStyle: [@bs.string] [ | [@bs.as "hidden"] `Hidden]=?,
       ~fullscreenable: bool=?,
       ~resizeable: bool=?,
+      ~transparent: bool=?,
+      ~title: string=?,
+      ~backgroundColor: string=?,
       unit
     ) =>
     windowConfig =
@@ -62,4 +65,5 @@ module MakeBrowserWindow =
 
   type visibility = [ | `Showing | `Hidden];
   let getVisibility = t => isVisible(t) ? `Showing : `Hidden;
+  let getBounds = t => Common.boundsFromJs(Common.getBoundsJs(t));
 };
